@@ -190,7 +190,8 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Sticky Navigation Bar */
 .navbar-spacer {
-    display: none; /* Hide spacer so content spans directly under transparent navbar */
+    display: block;
+    height: 100px; /* Desktop navbar height */
 }
 
 .navbar {
@@ -199,22 +200,24 @@ h1, h2, h3, h4, h5, h6 {
     left: 0;
     width: 100%;
     z-index: 1000;
-    background-color: transparent;
+    background-color: #FFFFFF; /* Clean SOLID WHITE background */
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
-    box-shadow: none;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* Subtle shadow underneath */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     transition: var(--transition-smooth);
-    height: 110px; /* Taller height for very large, visible logo */
+    height: 100px;
     display: flex;
     align-items: center;
 }
 
 .navbar.scrolled {
-    height: 85px; /* Slightly compact on scroll */
-    box-shadow: var(--shadow-md);
-    background-color: rgba(14, 70, 54, 0.93) !important; /* Translucent forest green for high contrast */
-    backdrop-filter: blur(10px) !important;
-    -webkit-backdrop-filter: blur(10px) !important;
+    height: 80px; /* Slightly compact on scroll */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08) !important;
+    background-color: #FFFFFF !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
 }
 
 .navbar .container {
@@ -262,19 +265,19 @@ h1, h2, h3, h4, h5, h6 {
 
 .brand-title-full {
     font-size: 15px;
-    font-weight: 700;
-    color: #FFFFFF; /* Readable white text */
+    font-weight: 800; /* Bold & highly visible */
+    color: var(--primary); /* Dark green brand color */
     letter-spacing: 0.5px;
     line-height: 1.2;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+    text-shadow: none; /* No shadow needed on solid white */
 }
 
 .brand-subtitle-full {
     font-size: 10px;
-    color: var(--accent); /* Premium gold accent */
-    font-weight: 600;
+    color: #8C6F35; /* Darker premium gold accent for contrast */
+    font-weight: 700;
     letter-spacing: 1px;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+    text-shadow: none; /* No shadow needed on solid white */
 }
 
 /* Nav Menu links */
@@ -292,13 +295,13 @@ h1, h2, h3, h4, h5, h6 {
 .nav-link {
     font-size: 14px; /* Slightly larger nav options */
     font-weight: 700; /* Bold & highly visible */
-    color: #FFFFFF !important; /* Pure white / very light text consistently */
-    letter-spacing: 1px;
+    color: var(--primary) !important; /* Dark green text consistently */
+    letter-spacing: 0.5px;
     text-transform: uppercase;
     padding: 8px 0;
     position: relative;
     cursor: pointer;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7); /* Subtle text shadow for readability */
+    text-shadow: none !important; /* No shadow needed on solid white */
     transition: var(--transition-fast);
 }
 
@@ -413,7 +416,7 @@ h1, h2, h3, h4, h5, h6 {
     display: block;
     width: 24px;
     height: 2px;
-    background-color: #FFFFFF; /* Crisp white for mobile visibility */
+    background-color: var(--primary); /* Dark green for visibility on white background */
     transition: var(--transition-smooth);
 }
 
@@ -480,7 +483,7 @@ h1, h2, h3, h4, h5, h6 {
     flex-direction: column;
     justify-content: center;
     color: var(--bg-white);
-    padding-top: 130px; /* Safe padding so text does not collide with transparent nav */
+    padding-top: 40px; /* Centered layout since we have a dedicated spacer */
 }
 
 .hero-text-box {
@@ -537,7 +540,7 @@ h1, h2, h3, h4, h5, h6 {
 /* Inner Page Hero (Sub-Hero) */
 .sub-hero {
     background-color: var(--primary);
-    padding: 160px 0 80px 0; /* Expanded top padding to clear absolute navbar */
+    padding: 80px 0; /* Reverted back to original clean padding since spacer exists */
     position: relative;
     overflow: hidden;
 }
@@ -1625,13 +1628,21 @@ textarea.form-control {
         max-width: 100%;
     }
     .hero-content {
-        padding-top: 100px;
+        padding-top: 30px;
+    }
+    .navbar-spacer {
+        height: 85px;
     }
     .navbar {
         height: 85px;
+        background-color: #FFFFFF !important;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     }
     .navbar.scrolled {
         height: 70px;
+        background-color: #FFFFFF !important;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08) !important;
     }
     .logo-container {
         width: 75px;
@@ -1648,14 +1659,14 @@ textarea.form-control {
     }
     .brand-title-full {
         font-size: 11px;
-        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        text-shadow: none;
     }
     .brand-subtitle-full {
         font-size: 8px;
-        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+        text-shadow: none;
     }
     .sub-hero {
-        padding: 130px 0 60px 0;
+        padding: 60px 0;
     }
     .hamburger {
         display: flex;
