@@ -3,32 +3,34 @@
    ========================================================================== */
 
 /* Import Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Manrope:wght@300;400;500;600;700;800&display=swap');
 
 /* Color Variables and Theme Tokens */
 :root {
-    --primary: #0E4636;
-    --primary-hover: #083125;
-    --primary-light: #EFF5F2;
-    --primary-rgb: 14, 70, 54;
-    --accent: #C5A059;
-    --accent-hover: #A8833E;
-    --accent-light: #FAF7F2;
-    --text-dark: #1E2923;
-    --text-muted: #556B60;
+    --primary: #102A43; /* Deep Navy */
+    --primary-hover: #0C2135;
+    --primary-light: #F0F4F8;
+    --primary-rgb: 16, 42, 67;
+    --secondary: #147D92; /* Teal */
+    --secondary-hover: #0F6172;
+    --accent: #C47F52; /* Muted Copper */
+    --accent-hover: #A56338;
+    --accent-light: #FDF7F3;
+    --text-dark: #17212B; /* Deep Charcoal */
+    --text-muted: #52606D; /* Slate */
     --bg-white: #FFFFFF;
-    --bg-light: #F4F7F5;
-    --border-light: #E2EAE5;
-    --shadow-sm: 0 2px 4px rgba(0,0,0,0.02);
-    --shadow-md: 0 10px 30px rgba(14,70,54,0.06);
-    --shadow-lg: 0 20px 40px rgba(14,70,54,0.1);
-    --font-heading: 'Playfair Display', Georgia, serif;
-    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --bg-light: #F7F5F0; /* Warm Off-White */
+    --border-light: #D9E2EC;
+    --shadow-sm: 0 2px 4px rgba(16,42,67,0.02);
+    --shadow-md: 0 10px 30px rgba(16,42,67,0.05);
+    --shadow-lg: 0 20px 40px rgba(16,42,67,0.08);
+    --font-heading: 'DM Serif Display', Georgia, serif;
+    --font-body: 'Manrope', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     --transition-fast: all 0.2s ease;
-    --border-radius-sm: 4px;
-    --border-radius-md: 12px;
-    --border-radius-lg: 24px;
+    --border-radius-sm: 6px; /* 6px-8px border radius as requested */
+    --border-radius-md: 10px; /* 8px-12px as requested for cards */
+    --border-radius-lg: 20px;
     --max-width: 1200px;
 }
 
@@ -48,7 +50,7 @@ html {
 body {
     font-family: var(--font-body);
     color: var(--text-dark);
-    background-color: var(--bg-white);
+    background-color: var(--bg-light);
     line-height: 1.65;
     overflow-x: hidden;
 }
@@ -108,7 +110,7 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 2px;
-    color: var(--accent);
+    color: var(--secondary);
     display: inline-block;
     margin-bottom: 12px;
 }
@@ -117,6 +119,17 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 38px;
     margin-bottom: 16px;
     position: relative;
+    color: var(--primary); /* Deep Navy headings */
+}
+
+.section-header .section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background-color: var(--accent); /* Muted Copper */
+    margin: 16px auto 0 auto;
+    border-radius: 2px;
 }
 
 .section-subtitle {
@@ -133,59 +146,57 @@ h1, h2, h3, h4, h5, h6 {
     justify-content: center;
     padding: 14px 28px;
     font-size: 14px;
-    font-weight: 600;
-    border-radius: var(--border-radius-sm);
+    font-weight: 700; /* Bold Manrope font for buttons */
+    border-radius: var(--border-radius-sm); /* 6px as configured in root */
     cursor: pointer;
     transition: var(--transition-smooth);
     border: none;
     outline: none;
     letter-spacing: 0.5px;
+    text-transform: uppercase;
 }
 
-.btn-primary {
-    background-color: var(--primary);
-    color: var(--bg-white);
+/* Primary Button (Teal #147D92, White text) */
+.btn-primary, .btn-accent {
+    background-color: var(--secondary) !important; /* Teal */
+    color: #FFFFFF !important;
+    border: 2px solid var(--secondary) !important;
+    box-shadow: 0 4px 10px rgba(20, 125, 146, 0.1);
 }
 
-.btn-primary:hover {
-    background-color: var(--primary-hover);
+.btn-primary:hover, .btn-accent:hover {
+    background-color: var(--secondary-hover) !important;
+    border-color: var(--secondary-hover) !important;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(14, 70, 54, 0.2);
+    box-shadow: 0 6px 15px rgba(20, 125, 146, 0.2);
 }
 
+/* Secondary Button (Transparent/white, Navy border, Navy text) */
 .btn-secondary {
-    background-color: transparent;
-    color: var(--primary);
-    border: 2px solid var(--primary);
+    background-color: transparent !important;
+    color: var(--primary) !important; /* Navy */
+    border: 2px solid var(--primary) !important;
 }
 
 .btn-secondary:hover {
-    background-color: var(--primary);
-    color: var(--bg-white);
+    background-color: var(--primary) !important;
+    color: #FFFFFF !important;
     transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(16, 42, 67, 0.15);
 }
 
-.btn-accent {
-    background-color: var(--accent);
-    color: var(--primary-hover);
-}
-
-.btn-accent:hover {
-    background-color: var(--accent-hover);
-    color: var(--bg-white);
-    transform: translateY(-2px);
-}
-
+/* Outline White Button (Transparent, White border, White text) */
 .btn-outline-white {
-    background-color: transparent;
-    color: var(--bg-white);
-    border: 2px solid var(--bg-white);
+    background-color: transparent !important;
+    color: #FFFFFF !important;
+    border: 2px solid #FFFFFF !important;
 }
 
 .btn-outline-white:hover {
-    background-color: var(--bg-white);
-    color: var(--primary);
+    background-color: #FFFFFF !important;
+    color: var(--primary) !important;
     transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(255, 255, 255, 0.15);
 }
 
 /* Sticky Navigation Bar */
@@ -274,7 +285,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .brand-subtitle-full {
     font-size: 10px;
-    color: #8C6F35; /* Darker premium gold accent for contrast */
+    color: var(--accent); /* Muted Copper accent */
     font-weight: 700;
     letter-spacing: 1px;
     text-shadow: none; /* No shadow needed on solid white */
@@ -312,16 +323,16 @@ h1, h2, h3, h4, h5, h6 {
     left: 0;
     width: 0;
     height: 2px;
-    background-color: var(--accent); /* Gold hover indicator */
+    background-color: var(--secondary); /* Teal hover indicator */
     transition: var(--transition-fast);
 }
 
 .nav-link:hover {
-    color: var(--accent) !important;
+    color: var(--secondary) !important;
 }
 
 .nav-link.active {
-    color: var(--accent) !important;
+    color: var(--secondary) !important;
 }
 
 .nav-link:hover::after {
@@ -640,17 +651,18 @@ h1, h2, h3, h4, h5, h6 {
     transition: var(--transition-smooth);
     display: flex;
     flex-direction: column;
+    box-shadow: var(--shadow-sm); /* Soft shadow */
 }
 
 .card:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--shadow-lg);
-    border-color: rgba(14,70,54,0.15);
+    transform: translateY(-4px); /* Slight upward movement */
+    box-shadow: var(--shadow-md); /* Very subtle shadow increase */
+    border-color: var(--secondary); /* Teal accent border */
 }
 
 .card-icon {
     font-size: 32px;
-    color: var(--accent);
+    color: var(--secondary); /* Teal accent */
     margin-bottom: 24px;
     height: 48px;
     display: flex;
@@ -680,7 +692,7 @@ h1, h2, h3, h4, h5, h6 {
 .card-link {
     font-size: 12px;
     font-weight: 700;
-    color: var(--primary);
+    color: var(--secondary); /* Teal links */
     text-transform: uppercase;
     letter-spacing: 1px;
     display: inline-flex;
@@ -733,7 +745,7 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 700;
     letter-spacing: 1px;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--secondary); /* Teal accent details */
 }
 
 /* Editorial Agriculture & Community Section */
@@ -802,8 +814,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .award-card:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--shadow-lg);
+    transform: translateY(-4px); /* Subtle upward movement */
+    box-shadow: var(--shadow-md); /* Subtle shadow increase */
 }
 
 .award-img-container {
@@ -873,11 +885,11 @@ h1, h2, h3, h4, h5, h6 {
 .director-card:hover {
     transform: translateY(-4px);
     box-shadow: var(--shadow-md);
-    border-color: rgba(14,70,54,0.1);
+    border-color: var(--secondary);
 }
 
 .director-card.prominent {
-    border-top: 4px solid var(--accent);
+    border-top: 4px solid var(--accent); /* Copper top highlight */
     background-color: var(--accent-light);
     transform: scale(1.02);
     border-color: var(--accent);
@@ -930,13 +942,13 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 16px;
     margin-bottom: 6px;
     font-weight: 700;
-    color: var(--text-dark);
+    color: var(--primary); /* Deep Navy */
 }
 
 .director-card.prominent .director-name {
     font-size: 18px;
     font-weight: 800;
-    color: var(--primary);
+    color: var(--primary); /* Deep Navy */
 }
 
 .director-position {
@@ -944,8 +956,12 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1.5px;
-    color: var(--accent);
+    color: var(--secondary); /* Teal for general directors */
     margin-bottom: 4px;
+}
+
+.director-card.prominent .director-position {
+    color: var(--accent); /* Copper highlight for President/Secretary */
 }
 
 .director-designation {
@@ -1204,7 +1220,7 @@ h1, h2, h3, h4, h5, h6 {
 .form-control:focus {
     border-color: var(--primary);
     background-color: var(--bg-white);
-    box-shadow: 0 0 0 3px rgba(14,70,54,0.1);
+    box-shadow: 0 0 0 3px rgba(16,42,67,0.1);
 }
 
 textarea.form-control {
@@ -1243,7 +1259,7 @@ textarea.form-control {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(14,70,54,0.7);
+    background-color: rgba(16,42,67,0.8);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1271,7 +1287,7 @@ textarea.form-control {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(14,70,54,0.95);
+    background-color: rgba(16,42,67,0.95);
     z-index: 2000;
     display: none;
     align-items: center;
@@ -1440,9 +1456,8 @@ textarea.form-control {
     color: var(--bg-white);
 }
 
-/* Footer Section */
 .footer {
-    background-color: #0B221B;
+    background-color: var(--primary); /* Deep Navy */
     color: rgba(255,255,255,0.7);
     padding: 80px 0 30px 0;
     font-size: 14px;
@@ -1517,11 +1532,11 @@ textarea.form-control {
 }
 
 .footer-link-item a {
-    color: rgba(255,255,255,0.75);
+    color: var(--secondary); /* Teal links */
 }
 
 .footer-link-item a:hover {
-    color: var(--accent);
+    color: var(--accent); /* Muted Copper on hover */
     padding-left: 4px;
 }
 
