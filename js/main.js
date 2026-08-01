@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initStatsCounter();
     initEnquiryModal();
     initLightbox();
+    initAwardSlideshow();
 });
 
 /* --------------------------------------------------------------------------
@@ -313,5 +314,32 @@ function initLightbox() {
         if (e.target === lightbox || e.target.classList.contains('lightbox-content')) {
             closeLightbox();
         }
+    });
+}
+
+/* --------------------------------------------------------------------------
+   8. AWARD IMAGE SLIDESHOW (ROTATOR)
+   -------------------------------------------------------------------------- */
+function initAwardSlideshow() {
+    const slideshows = document.querySelectorAll('.award-img-container.slideshow');
+    slideshows.forEach(slideshow => {
+        const imgs = slideshow.querySelectorAll('img');
+        if (imgs.length <= 1) return;
+        
+        // Ensure the first image has active class on start
+        imgs.forEach((img, idx) => {
+            if (idx === 0) {
+                img.classList.add('active');
+            } else {
+                img.classList.remove('active');
+            }
+        });
+        
+        let currentIdx = 0;
+        setInterval(() => {
+            imgs[currentIdx].classList.remove('active');
+            currentIdx = (currentIdx + 1) % imgs.length;
+            imgs[currentIdx].classList.add('active');
+        }, 3000); // Rotate every 3 seconds
     });
 }
