@@ -42,10 +42,12 @@ function initMobileMenu() {
 
     if (!hamburger || !navMenu) return;
 
+    const isMobileNav = () => window.innerWidth <= 768 || window.matchMedia('(max-width: 768px)').matches || navMenu.classList.contains('active');
+
     // Toggle menu
-    hamburger.addEventListener('click', () => {
+    hamburger.addEventListener('click', (e) => {
+        e.stopPropagation();
         navMenu.classList.toggle('active');
-        // Hamburger animation helper
         const spans = hamburger.querySelectorAll('span');
         if (navMenu.classList.contains('active')) {
             spans[0].style.transform = 'rotate(45deg) translate(5px, 6px)';
@@ -55,25 +57,28 @@ function initMobileMenu() {
             spans[0].style.transform = 'none';
             spans[1].style.opacity = '1';
             spans[2].style.transform = 'none';
+            dropdownItems.forEach(item => item.classList.remove('dropdown-active'));
         }
     });
 
     // Mobile dropdown toggle
     dropdownItems.forEach(item => {
         const link = item.querySelector('.nav-link');
+        if (!link) return;
         link.addEventListener('click', (e) => {
-            if (window.innerWidth <= 768) {
-                e.preventDefault(); // Prevent navigation on mobile tap
+            if (isMobileNav()) {
+                e.preventDefault(); // Prevent accidental navigation on mobile tap
+                e.stopPropagation();
                 item.classList.toggle('dropdown-active');
             }
         });
     });
 
-    // Close mobile menu on clicking any normal nav link
+    // Close mobile menu on clicking any normal nav link or dropdown sublink
     const navLinks = document.querySelectorAll('.nav-link:not(.dropdown > .nav-link), .dropdown-link');
     navLinks.forEach(link => {
         link.addEventListener('click', () => {
-            if (window.innerWidth <= 768) {
+            if (isMobileNav()) {
                 navMenu.classList.remove('active');
                 const spans = hamburger.querySelectorAll('span');
                 spans[0].style.transform = 'none';
