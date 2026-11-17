@@ -284,11 +284,20 @@ function initLightbox() {
     galleryItems.forEach(item => {
         item.addEventListener('click', () => {
             const itemImg = item.querySelector('img');
-            const itemCaption = item.querySelector('.gallery-item-hover').textContent;
+            const hoverEl = item.querySelector('.gallery-item-hover');
+            const itemCaption = hoverEl ? hoverEl.textContent.trim() : '';
             
             if (itemImg) {
                 img.src = itemImg.src;
-                caption.textContent = itemCaption || 'Perumatty Bank Gallery';
+                if (caption) {
+                    if (itemCaption) {
+                        caption.textContent = itemCaption;
+                        caption.style.display = 'block';
+                    } else {
+                        caption.textContent = '';
+                        caption.style.display = 'none';
+                    }
+                }
                 
                 lightbox.style.display = 'flex';
                 setTimeout(() => {
