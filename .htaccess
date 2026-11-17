@@ -1,0 +1,98 @@
+# ==============================================================================
+# PERUMATTY SERVICE CO-OPERATIVE BANK LTD.
+# Apache / LiteSpeed Server Configuration for Hostinger & Standard Web Hosting
+# ==============================================================================
+
+# 1. SECURITY: PREVENT DIRECTORY BROWSING
+Options -Indexes
+
+# 2. ERROR HANDLING: CUSTOM 404 PAGE
+ErrorDocument 404 /404.html
+
+# 3. REWRITE ENGINE RULES (HTTPS & Clean URLs)
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # A. Force HTTPS Redirect
+    RewriteCond %{HTTPS} off
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+    # B. Support Clean URLs (allow visiting /about without typing .html)
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME}.html -f
+    RewriteRule ^([^/]+)/?$ $1.html [L]
+
+    # Clean URLs for services directory (e.g. /services/loans)
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+    RewriteRule ^(services/[^/]+)/?$ $1.html [L]
+</IfModule>
+
+# 4. PERFORMANCE: BROWSER CACHING (mod_expires)
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresDefault "access plus 1 month"
+
+    # HTML documents - 1 hour cache for fresh updates
+    ExpiresByType text/html "access plus 1 hour"
+
+    # CSS & JavaScript - 1 year cache
+    ExpiresByType text/css "access plus 1 year"
+    ExpiresByType application/javascript "access plus 1 year"
+    ExpiresByType text/javascript "access plus 1 year"
+
+    # Images & Media - 1 year cache
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/jpg "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/x-icon "access plus 1 year"
+
+    # Web Fonts - 1 year cache
+    ExpiresByType font/ttf "access plus 1 year"
+    ExpiresByType font/woff "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+    ExpiresByType application/font-woff "access plus 1 year"
+    ExpiresByType application/font-woff2 "access plus 1 year"
+
+    # XML / Robots / Sitemaps
+    ExpiresByType application/xml "access plus 1 hour"
+    ExpiresByType text/xml "access plus 1 hour"
+</IfModule>
+
+# 5. PERFORMANCE: GZIP COMPRESSION (mod_deflate)
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/xml
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE text/javascript
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE application/xhtml+xml
+    AddOutputFilterByType DEFLATE application/rss+xml
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/x-javascript
+    AddOutputFilterByType DEFLATE application/json
+    AddOutputFilterByType DEFLATE image/svg+xml
+    AddOutputFilterByType DEFLATE font/ttf
+    AddOutputFilterByType DEFLATE font/otf
+</IfModule>
+
+# 6. SECURITY HEADERS
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# 7. MIME TYPES FOR MODERN FORMATS
+<IfModule mod_mime.c>
+    AddType image/webp .webp
+    AddType font/woff2 .woff2
+    AddType application/json .json
+</IfModule>
+
